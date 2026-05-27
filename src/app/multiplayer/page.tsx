@@ -8,7 +8,10 @@ import { Card } from "@/components/ui/Card";
 
 export default function MultiplayerPage() {
   const [room, setRoom] = useState<RoomState | null>(null);
-  const makeRoom = () => setRoom(createRoom());
+  const makeRoom = async () => {
+    const newRoom = await createRoom();
+    setRoom(newRoom);
+  };
   return (
     <section className="mx-auto max-w-5xl px-4 py-12">
       <h1 className="text-4xl font-black">Multiplayer Lobby</h1>
