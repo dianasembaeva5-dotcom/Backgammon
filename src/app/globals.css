@@ -1,26 +1,234 @@
 @import "tailwindcss";
 
+/* ═══════════════════════ DESIGN TOKENS ═══════════════════════ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --body-bg: radial-gradient(ellipse 80% 50% at 15% 0%, rgba(45,212,191,0.06) 0%, transparent 50%), radial-gradient(ellipse 60% 40% at 85% 10%, rgba(45,212,191,0.04) 0%, transparent 45%), #f0fdfa;
+  --card: rgba(240, 253, 250, 0.92);
+  --foreground: #0f4f49;
+  --muted: #4a7a75;
+  --border: rgba(13, 148, 136, 0.2);
+  --border-subtle: rgba(0, 0, 0, 0.07);
+  --gold-glow: rgba(13, 148, 136, 0.28);
+  --teal-glow: rgba(13, 148, 136, 0.28);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  --body-bg: radial-gradient(ellipse 100% 60% at 15% -5%, rgba(45,212,191,0.08) 0%, transparent 55%), radial-gradient(ellipse 80% 50% at 90% 10%, rgba(45,212,191,0.07) 0%, transparent 50%), radial-gradient(ellipse 60% 40% at 50% 105%, rgba(139,92,246,0.07) 0%, transparent 50%), #050912;
+  --card: rgba(11, 21, 37, 0.88);
+  --foreground: #f1f5f9;
+  --muted: #94a3b8;
+  --border: rgba(45, 212, 191, 0.18);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --gold-glow: rgba(45, 212, 191, 0.32);
+  --teal-glow: rgba(45, 212, 191, 0.32);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ═══════════════════════ BASE ═══════════════════════ */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--teal-glow); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(45,212,191,0.5); }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
+  background: var(--body-bg);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  transition: background 0.35s, color 0.35s;
+}
+
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+
+/* ═══════════════════════ GLASS / CARDS ═══════════════════════ */
+.glass {
+  background: var(--card);
+  border: 1px solid var(--border-subtle);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 20px 60px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+}
+.dark .glass {
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.04),
+    0 20px 60px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.glass-gold {
+  background: var(--card);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 0 40px var(--gold-glow),
+    0 20px 60px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+}
+
+/* ═══════════════════════ GRADIENT TEXT ═══════════════════════ */
+.gradient-gold {
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 45%, #0f766e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dark .gradient-gold {
+  background: linear-gradient(135deg, #99f6e4 0%, #2dd4bf 45%, #5eead4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-hero {
+  background: linear-gradient(125deg, #134e4a 0%, #0f766e 35%, #0d9488 65%, #14b8a6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dark .gradient-hero {
+  background: linear-gradient(125deg, #ffffff 0%, #ccfbf1 25%, #5eead4 55%, #2dd4bf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-teal {
+  background: linear-gradient(135deg, #0d9488, #14b8a6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dark .gradient-teal {
+  background: linear-gradient(135deg, #5eead4, #2dd4bf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ═══════════════════════ GLOW ═══════════════════════ */
+.glow-gold { box-shadow: 0 0 25px var(--teal-glow), 0 0 70px var(--teal-glow); }
+.glow-teal { box-shadow: 0 0 25px var(--teal-glow), 0 0 60px var(--teal-glow); }
+.text-glow-gold { text-shadow: 0 0 30px rgba(45,212,191,0.7), 0 0 60px rgba(45,212,191,0.4); }
+
+/* ═══════════════════════ ANIMATIONS ═══════════════════════ */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(9deg); }
+}
+@keyframes float-med {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(-6deg); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.12); }
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%) skewX(-12deg); }
+  100% { transform: translateX(250%) skewX(-12deg); }
+}
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.6); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes border-glow-pulse {
+  0%, 100% { box-shadow: 0 0 8px var(--gold-glow); }
+  50% { box-shadow: 0 0 24px var(--gold-glow), 0 0 48px var(--gold-glow); }
+}
+@keyframes beam {
+  0% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(300%) skewX(-15deg); opacity: 0; }
+}
+
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-float-slow { animation: float-slow 7s ease-in-out infinite; }
+.animate-float-med { animation: float-med 5.5s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 3.5s ease-in-out infinite; }
+.animate-gradient { animation: gradient-shift 5s ease infinite; background-size: 300% 300%; }
+.animate-spin-slow { animation: spin-slow 20s linear infinite; }
+.animate-twinkle { animation: twinkle 3s ease-in-out infinite; }
+.animate-slide-up { animation: slide-up 0.7s ease-out both; }
+.animate-fade-in { animation: fade-in 0.5s ease-out both; }
+.animate-border-glow { animation: border-glow-pulse 2.5s ease-in-out infinite; }
+
+/* ═══════════════════════ TYPOGRAPHY ═══════════════════════ */
+.display-serif {
+  font-family: var(--font-cinzel), Georgia, "Times New Roman", serif;
+  letter-spacing: 0.04em;
+}
+.display-sans {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  letter-spacing: -0.035em;
+  font-weight: 900;
+}
+
+/* ═══════════════════════ LAYOUT UTILITIES ═══════════════════════ */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(13,148,136,0.2), transparent);
+}
+.dark .section-divider {
+  background: linear-gradient(90deg, transparent, rgba(45,212,191,0.2), transparent);
+}
+
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.dark .grid-pattern {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.dotted-panel {
+  background-image: radial-gradient(var(--border-subtle) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+/* ═══════════════════════ BOARD ═══════════════════════ */
+.board-grain {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.07), transparent),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 2px, transparent 2px 7px),
+    linear-gradient(160deg, #1c0a04, #301208 30%, #1c0a04 60%, #3d1a0c);
+}
+.triangle-light { clip-path: polygon(50% 100%, 0 0, 100% 0); }
+.triangle-dark { clip-path: polygon(50% 0, 0 100%, 100% 100%); }
+
+/* ═══════════════════════ SKETCH (legacy compat) ═══════════════════════ */
+.sketch-line {
+  stroke: rgba(45,212,191,0.6);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
 }
