@@ -36,7 +36,20 @@ body {
   min-height: 100vh;
   background: var(--body-bg);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "SF Pro Text",
+    sans-serif;
+
+  letter-spacing: -0.015em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   transition: background 0.35s, color 0.35s;
 }
 
@@ -182,9 +195,17 @@ button, input { font: inherit; }
   letter-spacing: 0.04em;
 }
 .display-sans {
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
-  letter-spacing: -0.035em;
-  font-weight: 900;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    sans-serif;
+
+  letter-spacing: -0.045em;
+  font-weight: 800;
 }
 
 /* ═══════════════════════ LAYOUT UTILITIES ═══════════════════════ */
